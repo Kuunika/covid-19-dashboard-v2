@@ -5,14 +5,14 @@ import RightDashDataCells from "./rightDashDataCells";
 
 export default function DashboardLayout() {
   return (
-    <Grid sx={{ margin: 10 }} container spacing={2}>
-      <Grid>
+    <Grid sx={{ margin: 10 }} container spacing={10}>
+      <Grid item>
         <LeftDashDataCells />
       </Grid>
-      <Grid xs={6}>
+      <Grid item xs={6}>
         <MapContainer />
       </Grid>
-      <Grid>
+      <Grid item>
         <RightDashDataCells />
       </Grid>
     </Grid>
