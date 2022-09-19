@@ -1,36 +1,26 @@
 import { Paper, Typography } from "@mui/material";
-import Map, { FillLayer, Layer, Source } from "react-map-gl";
+import Map, { FillLayer, Layer, Popup, Source } from "react-map-gl";
 import mapData from "../../fixtures/features.json";
-
-function getRandomColor() {
-  var letters = "0123456789ABCDEF";
-  var color = "#";
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
+import MapLayer from "./mapComponts/mapLayer";
 
 const districtLayers = mapData.features.map((district) => {
-  const dataLayer: FillLayer = {
-    id: district.id,
-    type: "fill",
-    source: "mapbox",
-    paint: {
-      "fill-color": `${getRandomColor()}`,
-    },
-  };
+  const showPopUp = true;
 
-  const featureCollection = {
-    type: "FeatureCollection",
-    features: [district],
-  };
-  return (
-    //@ts-ignore
-    <Source id={district.id} type="geojson" data={featureCollection}>
-      <Layer {...dataLayer} />
-    </Source>
-  );
+  return <MapLayer district={district} />;
+  // return (
+  //   //@ts-ignore
+  //   <Source id={district.id} type="geojson" data={featureCollection}>
+  //     <Layer {...dataLayer} />
+  //     {showPopUp && (
+  //       <Popup
+  //         longitude={district.geometry.coordinates[0][0][0]}
+  //         latitude={district.geometry.coordinates[0][0][1]}
+  //       >
+  //         cool popup
+  //       </Popup>
+  //     )}
+  //   </Source>
+  // );
 });
 
 export default function MapContainer() {
