@@ -5,21 +5,33 @@ import DashboardLayout from "../components/dashboard/dashboardLayout";
 import { create } from "apisauce";
 import { GetStaticProps, GetStaticPropsContext } from "next";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { DistrictAggregate } from "../interfaces";
+import { useContext } from "react";
+import {
+  DistrictAggregateContext,
+  DistrictAggregateContextType,
+} from "../contexts/aggregates";
 
 interface IProps {
-  districts: any;
+  districts: DistrictAggregate[] | undefined;
 }
 
 const Home: NextPage = ({ districts }) => {
-  console.log(districts);
+  const { saveAggregate } = useContext(
+    DistrictAggregateContext
+  ) as DistrictAggregateContextType;
+
+  saveAggregate(districts);
   return <DashboardLayout />;
 };
 
 export const getStaticProps: GetStaticProps<IProps> = async () => {
   process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
   const api = create({ baseURL: "https://covid19.health.gov.mw/api" });
-  const response = await api.get<{ districts: any }>("districts/aggregates");
-  let districts = [];
+  const response = await api.get<{ districts: DistrictAggregate[] }>(
+    "districts/aggregates"
+  );
+  let districts: DistrictAggregate[] | undefined = [];
   if (response.ok) districts = response.data?.districts;
 
   return {

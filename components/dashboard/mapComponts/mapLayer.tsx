@@ -1,8 +1,12 @@
 import { FillLayer, Layer, Popup, Source } from "react-map-gl";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { isPointInCoordinates } from "../../../helpers/geoCalculations";
 import { Point } from "../../../interfaces";
 import { Paper, Typography } from "@mui/material";
+import {
+  DistrictAggregateContext,
+  DistrictAggregateContextType,
+} from "../../../contexts/aggregates";
 interface IProps {
   district: any;
   lngLtd: Point;
@@ -19,6 +23,9 @@ function getRandomColor() {
 
 export default function MapLayer({ district, lngLtd }: IProps) {
   const [show, setShow] = useState(false);
+  const { districtsAggregates } = useContext(
+    DistrictAggregateContext
+  ) as DistrictAggregateContextType;
 
   const polygon = district.geometry.coordinates[0].map((distr: any) => ({
     latitude: distr[1],
@@ -29,9 +36,18 @@ export default function MapLayer({ district, lngLtd }: IProps) {
     if (isPointInCoordinates(lngLtd, polygon)) {
       return setShow(true);
     }
-
     return setShow(false);
   }, [lngLtd]);
+
+  useEffect(() => {
+    const aggregate = districtsAggregates.find(
+      (districtAggregate) =>
+        districtAggregate.districtName.toLowerCase() ===
+        district.properties.districtName.toLowerCase()
+    );
+
+    console.log(aggregate);
+  }, []);
 
   const dataLayer: FillLayer = {
     id: district.id,
