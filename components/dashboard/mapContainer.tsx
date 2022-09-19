@@ -1,32 +1,33 @@
 import { Paper, Typography } from "@mui/material";
+import { useState } from "react";
 import Map, { FillLayer, Layer, Popup, Source } from "react-map-gl";
 import mapData from "../../fixtures/features.json";
+import { Point } from "../../interfaces";
 import MapLayer from "./mapComponts/mapLayer";
 
-const districtLayers = mapData.features.map((district) => {
-  const showPopUp = true;
-
-  return <MapLayer district={district} />;
-  // return (
-  //   //@ts-ignore
-  //   <Source id={district.id} type="geojson" data={featureCollection}>
-  //     <Layer {...dataLayer} />
-  //     {showPopUp && (
-  //       <Popup
-  //         longitude={district.geometry.coordinates[0][0][0]}
-  //         latitude={district.geometry.coordinates[0][0][1]}
-  //       >
-  //         cool popup
-  //       </Popup>
-  //     )}
-  //   </Source>
-  // );
-});
-
 export default function MapContainer() {
+  const [currentCoordinates, setCurrentCoordinates] = useState<Point>({
+    latitude: 0,
+    longitude: 0,
+  });
+  const districtLayers = mapData.features.map((district) => {
+    return (
+      <MapLayer
+        lngLtd={currentCoordinates}
+        key={district.id}
+        district={district}
+      />
+    );
+  });
   return (
     <Paper>
       <Map
+        onMouseMove={(event) =>
+          setCurrentCoordinates({
+            latitude: event.lngLat.lat,
+            longitude: event.lngLat.lng,
+          })
+        }
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAP_BOX_ACCESS_TOKEN}
         interactiveLayerIds={["data"]}
         initialViewState={{
