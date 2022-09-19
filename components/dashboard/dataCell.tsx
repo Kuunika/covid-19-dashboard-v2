@@ -8,7 +8,7 @@ interface Props {
 
 export default function DataCell({ title, value }: Props) {
   return (
-    <Paper sx={{ width: 300, py: 5, px: 5 }} elevation={6}>
+    <Paper sx={{ width: 300, py: 5, px: 5 }} elevation={1}>
       <Typography variant="h5" color="blue">
         {title}
       </Typography>

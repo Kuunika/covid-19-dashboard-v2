@@ -24,3 +24,7 @@ a {
     background: #fff
   }
 }
+
+.map-container {
+  height: 400px;
+  }
