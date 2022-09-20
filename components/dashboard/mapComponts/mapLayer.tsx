@@ -1,12 +1,13 @@
 import { FillLayer, Layer, Popup, Source } from "react-map-gl";
-import { useContext, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { isPointInCoordinates } from "../../../helpers/geoCalculations";
-import { Point } from "../../../interfaces";
+import { DistrictAggregate, Point } from "../../../interfaces";
 import { Paper, Typography } from "@mui/material";
 import {
   DistrictAggregateContext,
   DistrictAggregateContextType,
 } from "../../../contexts/aggregates";
+import { Box, Stack } from "@mui/system";
 interface IProps {
   district: any;
   lngLtd: Point;
@@ -23,6 +24,9 @@ function getRandomColor() {
 
 export default function MapLayer({ district, lngLtd }: IProps) {
   const [show, setShow] = useState(false);
+  const [districtAggregate, setDistrictAggregate] = useState<DistrictAggregate>(
+    {} as DistrictAggregate
+  );
   const { districtsAggregates } = useContext(
     DistrictAggregateContext
   ) as DistrictAggregateContextType;
@@ -42,11 +46,11 @@ export default function MapLayer({ district, lngLtd }: IProps) {
   useEffect(() => {
     const aggregate = districtsAggregates.find(
       (districtAggregate) =>
-        districtAggregate.districtName.toLowerCase() ===
-        district.properties.districtName.toLowerCase()
+        districtAggregate.districtName.toLowerCase().replace(" ", "") ===
+        district.properties.districtName.toLowerCase().replace(" ", "")
     );
 
-    console.log(aggregate);
+    if (aggregate) setDistrictAggregate(aggregate);
   }, []);
 
   const dataLayer: FillLayer = {
@@ -56,6 +60,7 @@ export default function MapLayer({ district, lngLtd }: IProps) {
       "fill-color": `${getRandomColor()}`,
     },
   };
+
   const featureCollection = {
     type: "FeatureCollection",
     features: [district],
@@ -73,14 +78,60 @@ export default function MapLayer({ district, lngLtd }: IProps) {
           <Popup
             longitude={district.geometry.coordinates[0][0][0]}
             latitude={district.geometry.coordinates[0][0][1]}
-            style={{ width: 300, height: 3000 }}
+            style={{ width: 300 }}
           >
-            <Typography variant="h5">
-              {district.properties.districtName}
-            </Typography>
+            <DisplayDistrictDetails {...districtAggregate} />
           </Popup>
         )}
       </Source>
     </div>
   );
 }
+
+const DisplayDistrictDetails: FC<DistrictAggregate> = ({
+  districtName,
+  numberOfConfirmedCases,
+  numberOfConfirmedDeaths,
+  numberOfRecoveredPatients,
+  numberOfLostToFollowUp,
+  numberOfActiveCases,
+}) => {
+  return (
+    <>
+      <Typography variant="h4">{districtName}</Typography>
+      <Stack>
+        <DetailsContent
+          keyValue="total confirmed cases"
+          value={numberOfConfirmedCases}
+        />
+        <DetailsContent
+          keyValue="total confirmed deaths"
+          value={numberOfConfirmedDeaths}
+        />
+        <DetailsContent
+          keyValue="total recovered patients"
+          value={numberOfRecoveredPatients}
+        />
+        <DetailsContent
+          keyValue="lost during follow-up"
+          value={numberOfLostToFollowUp}
+        />
+        <DetailsContent
+          keyValue="total active patients"
+          value={numberOfActiveCases}
+        />
+      </Stack>
+    </>
+  );
+};
+
+const DetailsContent: FC<{ value: number; keyValue: string }> = ({
+  value,
+  keyValue,
+}) => {
+  return (
+    <Typography variant="subtitle2" sx={{ textTransform: "capitalize" }}>
+      {keyValue}: {value}
+    </Typography>
+  );
+};
