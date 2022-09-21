@@ -9,7 +9,7 @@ export type DistrictAggregateContextType = {
 export const DistrictAggregateContext =
   createContext<DistrictAggregateContextType | null>(null);
 
-const DistrictAggregateProvider: FC<ReactNode> = ({ children }) => {
+const DistrictAggregateProvider: FC = ({ children }) => {
   const [districtsAggregates, setDistrictAggregate] = useState<
     DistrictAggregate[]
   >([]);

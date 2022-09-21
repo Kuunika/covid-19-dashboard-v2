@@ -20,6 +20,7 @@ const TabSelectionProvider: FC<ReactNode> = ({ children }) => {
   }, [activeTab]);
 
   const activateTab = (arg: ITabs) => {
+    console.log(arg);
     setActiveTab(arg);
   };
 
