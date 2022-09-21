@@ -10,6 +10,10 @@ import {
 } from "../../../contexts/aggregates";
 import { Box, Stack } from "@mui/system";
 import getColor from "../../../helpers/getColor";
+import {
+  TabSelectionContext,
+  TabSelectionType,
+} from "../../../contexts/tabSelection";
 interface IProps {
   district: any;
   lngLtd: Point;
@@ -21,6 +25,7 @@ export default function MapLayer({ district, lngLtd }: IProps) {
   const [districtAggregate, setDistrictAggregate] = useState<DistrictAggregate>(
     {} as DistrictAggregate
   );
+  const { color } = useContext(TabSelectionContext) as TabSelectionType;
   const { districtsAggregates } = useContext(
     DistrictAggregateContext
   ) as DistrictAggregateContextType;
@@ -54,12 +59,12 @@ export default function MapLayer({ district, lngLtd }: IProps) {
       type: "fill",
       paint: {
         "fill-color": `${getColor(
-          colors.activeCases,
+          color,
           districtAggregate.numberOfActiveCases
         )}`,
       },
     });
-  }, [districtAggregate]);
+  }, [districtAggregate, color]);
 
   const featureCollection = {
     type: "FeatureCollection",
