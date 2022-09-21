@@ -3,6 +3,7 @@ import { useState } from "react";
 import Map, { FillLayer, Layer, Popup, Source } from "react-map-gl";
 import mapData from "../../fixtures/features.json";
 import { Point } from "../../interfaces";
+import ControlPanel from "./mapComponts/control-panel";
 import MapLayer from "./mapComponts/mapLayer";
 
 export default function MapContainer() {

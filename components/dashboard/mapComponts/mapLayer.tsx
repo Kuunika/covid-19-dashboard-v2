@@ -2,28 +2,22 @@ import { FillLayer, Layer, Popup, Source } from "react-map-gl";
 import { FC, useContext, useEffect, useState } from "react";
 import { isPointInCoordinates } from "../../../helpers/geoCalculations";
 import { DistrictAggregate, Point } from "../../../interfaces";
-import { Paper, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
+import colors from "../../../themes/colors";
 import {
   DistrictAggregateContext,
   DistrictAggregateContextType,
 } from "../../../contexts/aggregates";
 import { Box, Stack } from "@mui/system";
+import getColor from "../../../helpers/getColor";
 interface IProps {
   district: any;
   lngLtd: Point;
 }
 
-function getRandomColor() {
-  var letters = "0123456789ABCDEF";
-  var color = "#";
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
-
 export default function MapLayer({ district, lngLtd }: IProps) {
   const [show, setShow] = useState(false);
+  const [dataLayer, setDataLayer] = useState<FillLayer>({} as FillLayer);
   const [districtAggregate, setDistrictAggregate] = useState<DistrictAggregate>(
     {} as DistrictAggregate
   );
@@ -53,13 +47,19 @@ export default function MapLayer({ district, lngLtd }: IProps) {
     if (aggregate) setDistrictAggregate(aggregate);
   }, []);
 
-  const dataLayer: FillLayer = {
-    id: district.id,
-    type: "fill",
-    paint: {
-      "fill-color": `${getRandomColor()}`,
-    },
-  };
+  useEffect(() => {
+    if (districtsAggregates.length < 0) return;
+    setDataLayer({
+      id: district.id,
+      type: "fill",
+      paint: {
+        "fill-color": `${getColor(
+          colors.activeCases,
+          districtAggregate.numberOfActiveCases
+        )}`,
+      },
+    });
+  }, [districtAggregate]);
 
   const featureCollection = {
     type: "FeatureCollection",

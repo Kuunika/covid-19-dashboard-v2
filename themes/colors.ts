@@ -1,19 +1,21 @@
 const activeCases = {
-  0: "#FFEDC1",
-  1: "#95DCF4",
-  2: "#53CAF2",
-  3: "#04ABE3",
-  4: "#008EBC",
-  5: "#007092",
+  0: "#fff",
+  1: "#FFEDC1",
+  2: "#95DCF4",
+  3: "#53CAF2",
+  4: "#04ABE3",
+  5: "#008EBC",
+  6: "#007092",
 };
 
 const deaths = {
-  0: "#FFEDC1",
-  1: "#E2A686",
-  2: "#DF8D5D",
-  3: "D76422",
-  4: "#BA551B",
-  5: "#984414",
+  0: "#fff",
+  1: "#FFEDC1",
+  2: "#E2A686",
+  3: "#DF8D5D",
+  4: "D76422",
+  5: "#BA551B",
+  6: "#984414",
 };
 
 export default { activeCases, deaths };

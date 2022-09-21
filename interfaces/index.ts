@@ -1,9 +1,9 @@
-export interface Point {
+export type Point = {
   latitude: number;
   longitude: number;
-}
+};
 
-export interface DistrictAggregate {
+export type DistrictAggregate = {
   districtGeolocation: { lat: null; lng: null };
   districtName: string;
   numberOutcomeUnderInvestigation: number;
@@ -13,4 +13,13 @@ export interface DistrictAggregate {
   numberOfConfirmedDeaths: number;
   numberOfRecoveredPatients: number;
   numberOfSuspectedCases: number;
-}
+};
+
+export type IScale = {
+  lower: number;
+  upper: number;
+};
+
+export type IColor = { [key: number]: string };
+
+export type ITabs = "activeCases" | "deaths";
