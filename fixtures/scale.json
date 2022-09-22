@@ -5,6 +5,10 @@
   },
   {
     "lower": 1,
+    "upper": 9
+  },
+  {
+    "lower": 10,
     "upper": 29
   },
   {
@@ -13,18 +17,14 @@
   },
   {
     "lower": 50,
-    "upper": 69
+    "upper": 79
   },
   {
-    "lower": 70,
-    "upper": 89
+    "lower": 80,
+    "upper": 99
   },
   {
-    "lower": 90,
-    "upper": 199
-  },
-  {
-    "lower": 200,
+    "lower": 100,
     "upper": 100000000000000
   }
 ]

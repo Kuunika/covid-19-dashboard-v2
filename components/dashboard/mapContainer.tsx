@@ -1,12 +1,19 @@
 import { Paper, Typography } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Map, { FillLayer, Layer, Popup, Source } from "react-map-gl";
+import {
+  TabSelectionContext,
+  TabSelectionType,
+} from "../../contexts/tabSelection";
 import mapData from "../../fixtures/features.json";
 import { Point } from "../../interfaces";
 import ControlPanel from "./mapComponts/control-panel";
 import MapLayer from "./mapComponts/mapLayer";
 
 export default function MapContainer() {
+  const { color, activeTab } = useContext(
+    TabSelectionContext
+  ) as TabSelectionType;
   const [currentCoordinates, setCurrentCoordinates] = useState<Point>({
     latitude: 0,
     longitude: 0,
@@ -40,7 +47,7 @@ export default function MapContainer() {
         mapStyle="mapbox://styles/mapbox/light-v9"
       >
         {districtLayers}
-        <ControlPanel />
+        <ControlPanel color={color} />
       </Map>
     </Paper>
   );

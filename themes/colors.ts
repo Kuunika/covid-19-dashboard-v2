@@ -1,5 +1,5 @@
-const activeCases = {
-  0: "#fff",
+const activeCases: { [key: number]: string } = {
+  0: "#B6B6B6",
   1: "#FFEDC1",
   2: "#95DCF4",
   3: "#53CAF2",
@@ -8,12 +8,12 @@ const activeCases = {
   6: "#007092",
 };
 
-const deaths = {
-  0: "#fff",
+const deaths: { [key: number]: string } = {
+  0: "#B6B6B6",
   1: "#FFEDC1",
   2: "#E2A686",
   3: "#DF8D5D",
-  4: "D76422",
+  4: "#D76422",
   5: "#BA551B",
   6: "#984414",
 };

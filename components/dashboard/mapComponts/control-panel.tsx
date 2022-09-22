@@ -1,10 +1,21 @@
-import { FC } from "react";
-import { Box, Paper, Stack } from "@mui/material";
+import { FC, useState, useEffect } from "react";
+import { Box, Paper, Stack, Typography } from "@mui/material";
 import * as React from "react";
 import COLORS from "../../../themes/colors";
+import LEGENDS from "../../../constants/legends";
+import { IColor } from "../../../interfaces";
 
-function ControlPanel() {
-  const colors = Object.entries(COLORS.activeCases);
+type IProps = {
+  color: IColor;
+};
+
+const ControlPanel: FC<IProps> = ({ color }) => {
+  const [colors, setColors] = useState<Array<any>>([]);
+
+  useEffect(() => {
+    setColors(Object.entries(color));
+  }, [color]);
+
   return (
     <Paper
       sx={{
@@ -16,18 +27,27 @@ function ControlPanel() {
       }}
     >
       <Stack spacing={0.1}>
-        {colors.map((color) => (
-          <ColorTab color={color[1]} />
+        {colors.map((color, index) => (
+          <ColorTab
+            key={color[1]}
+            color={color[1]}
+            legend={LEGENDS.deaths[index]}
+          />
         ))}
       </Stack>
     </Paper>
   );
-}
+};
 
-const ColorTab: FC<{ color: string }> = ({ color }) => {
+const ColorTab: FC<{ color: string; legend: string }> = ({ color, legend }) => {
   return (
-    <Box>
-      <Box sx={{ width: "20px", height: "20px", backgroundColor: color }}></Box>
+    <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Box
+        sx={{ width: "20px", height: "20px", backgroundColor: color, mr: 1 }}
+      />{" "}
+      <Typography variant="body1" color={"grey"}>
+        {legend}
+      </Typography>
     </Box>
   );
 };
