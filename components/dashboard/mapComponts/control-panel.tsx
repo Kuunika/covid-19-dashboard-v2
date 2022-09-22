@@ -1,7 +1,6 @@
 import { FC, useState, useEffect } from "react";
 import { Box, Paper, Stack, Typography } from "@mui/material";
 import * as React from "react";
-import COLORS from "../../../themes/colors";
 import LEGENDS from "../../../constants/legends";
 import { IColor } from "../../../interfaces";
 
