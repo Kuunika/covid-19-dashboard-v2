@@ -3,12 +3,12 @@ import { FC, useContext, useEffect, useState } from "react";
 import { isPointInCoordinates } from "../../../helpers/geoCalculations";
 import { DistrictAggregate, Point } from "../../../interfaces";
 import { Typography } from "@mui/material";
-import colors from "../../../themes/colors";
 import {
   DistrictAggregateContext,
   DistrictAggregateContextType,
 } from "../../../contexts/aggregates";
-import { Box, Stack } from "@mui/system";
+import { Stack } from "@mui/system";
+import { aggregateTabMapping } from "../../../constants/mappings";
 import getColor from "../../../helpers/getColor";
 import {
   TabSelectionContext,
@@ -25,7 +25,10 @@ export default function MapLayer({ district, lngLtd }: IProps) {
   const [districtAggregate, setDistrictAggregate] = useState<DistrictAggregate>(
     {} as DistrictAggregate
   );
-  const { color } = useContext(TabSelectionContext) as TabSelectionType;
+
+  const { color, activeTab } = useContext(
+    TabSelectionContext
+  ) as TabSelectionType;
   const { districtsAggregates } = useContext(
     DistrictAggregateContext
   ) as DistrictAggregateContextType;
@@ -60,7 +63,7 @@ export default function MapLayer({ district, lngLtd }: IProps) {
       paint: {
         "fill-color": `${getColor(
           color,
-          districtAggregate.numberOfActiveCases
+          districtAggregate[aggregateTabMapping[activeTab]]
         )}`,
       },
     });

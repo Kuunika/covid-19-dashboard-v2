@@ -1,20 +1,34 @@
+import { FC } from "react";
+import { Box, Paper, Stack } from "@mui/material";
 import * as React from "react";
+import COLORS from "../../../themes/colors";
 
 function ControlPanel() {
+  const colors = Object.entries(COLORS.activeCases);
   return (
-    <div className="control-panel">
-      <h3>Zoom to Bounding Box</h3>
-      <p>Click on a San Fransisco Neighborhood to zoom in.</p>
-      <div className="source-link">
-        <a
-          href="https://github.com/visgl/react-map-gl/tree/7.0-release/examples/zoom-to-bounds"
-          target="_new"
-        >
-          View Code ↗
-        </a>
-      </div>
-    </div>
+    <Paper
+      sx={{
+        position: "absolute",
+        bottom: 20,
+        right: 4,
+        width: "150px",
+        padding: 1,
+      }}
+    >
+      <Stack spacing={0.1}>
+        {colors.map((color) => (
+          <ColorTab color={color[1]} />
+        ))}
+      </Stack>
+    </Paper>
   );
 }
 
+const ColorTab: FC<{ color: string }> = ({ color }) => {
+  return (
+    <Box>
+      <Box sx={{ width: "20px", height: "20px", backgroundColor: color }}></Box>
+    </Box>
+  );
+};
 export default React.memo(ControlPanel);

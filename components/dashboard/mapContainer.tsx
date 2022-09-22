@@ -21,7 +21,7 @@ export default function MapContainer() {
     );
   });
   return (
-    <Paper>
+    <Paper sx={{ position: "relative" }}>
       <Map
         onMouseMove={(event) =>
           setCurrentCoordinates({
@@ -40,6 +40,7 @@ export default function MapContainer() {
         mapStyle="mapbox://styles/mapbox/light-v9"
       >
         {districtLayers}
+        <ControlPanel />
       </Map>
     </Paper>
   );
