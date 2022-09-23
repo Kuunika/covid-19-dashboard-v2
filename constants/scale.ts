@@ -1,3 +1,4 @@
+import * as TABS from "./tabs";
 const activeCases = [
   {
     lower: 0,
@@ -64,4 +65,9 @@ const recovered = [
 
 const confirmed = recovered;
 
-export default { recovered, confirmed, activeCases, deaths };
+export default {
+  [TABS.RECOVERED]: recovered,
+  [TABS.CONFIRMED]: confirmed,
+  [TABS.ACTIVE_CASES]: activeCases,
+  [TABS.DEATHS]: deaths,
+};
