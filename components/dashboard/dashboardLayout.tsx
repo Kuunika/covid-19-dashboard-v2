@@ -1,7 +1,9 @@
-import { Grid } from "@mui/material";
+import { Grid, Paper } from "@mui/material";
+import { Stack } from "@mui/system";
 import LeftDashDataCells from "./leftDashDataCells";
 import MapContainer from "./mapContainer";
 import RightDashDataCells from "./rightDashDataCells";
+import TopBar from "./topBar";
 
 export default function DashboardLayout() {
   return (
@@ -15,7 +17,10 @@ export default function DashboardLayout() {
         <LeftDashDataCells />
       </Grid>
       <Grid item xs={6}>
-        <MapContainer />
+        <Stack>
+          <TopBar />
+          <MapContainer />
+        </Stack>
       </Grid>
       <Grid item>
         <RightDashDataCells />

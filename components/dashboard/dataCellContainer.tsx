@@ -15,7 +15,7 @@ export default function DataCellContainer({ data }: Props) {
     TabSelectionContext
   ) as TabSelectionType;
   return (
-    <Stack spacing={2}>
+    <Stack spacing={1}>
       {data.map(({ title, value, tab }) => (
         <DataCell
           key={title}
