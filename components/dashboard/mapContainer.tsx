@@ -11,7 +11,7 @@ import ControlPanel from "./mapComponts/control-panel";
 import MapLayer from "./mapComponts/mapLayer";
 
 export default function MapContainer() {
-  const { color, activeTab } = useContext(
+  const { color, activeTab, scale, legend } = useContext(
     TabSelectionContext
   ) as TabSelectionType;
   const [currentCoordinates, setCurrentCoordinates] = useState<Point>({
@@ -47,7 +47,7 @@ export default function MapContainer() {
         mapStyle="mapbox://styles/mapbox/light-v9"
       >
         {districtLayers}
-        <ControlPanel color={color} />
+        <ControlPanel color={color} legend={legend} />
       </Map>
     </Paper>
   );

@@ -26,7 +26,7 @@ export default function MapLayer({ district, lngLtd }: IProps) {
     {} as DistrictAggregate
   );
 
-  const { color, activeTab } = useContext(
+  const { color, activeTab, scale } = useContext(
     TabSelectionContext
   ) as TabSelectionType;
   const { districtsAggregates } = useContext(
@@ -63,7 +63,8 @@ export default function MapLayer({ district, lngLtd }: IProps) {
       paint: {
         "fill-color": `${getColor(
           color,
-          districtAggregate[aggregateTabMapping[activeTab]]
+          districtAggregate[aggregateTabMapping[activeTab]],
+          scale
         )}`,
       },
     });

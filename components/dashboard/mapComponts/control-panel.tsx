@@ -2,13 +2,15 @@ import { FC, useState, useEffect } from "react";
 import { Box, Paper, Stack, Typography } from "@mui/material";
 import * as React from "react";
 import LEGENDS from "../../../constants/legends";
-import { IColor } from "../../../interfaces";
+import { IColor, IScale } from "../../../interfaces";
 
 type IProps = {
   color: IColor;
+  scale: IScale[];
+  legend: { [key: number]: string };
 };
 
-const ControlPanel: FC<IProps> = ({ color }) => {
+const ControlPanel: FC<IProps> = ({ color, scale, legend }) => {
   const [colors, setColors] = useState<Array<any>>([]);
 
   useEffect(() => {
@@ -27,11 +29,7 @@ const ControlPanel: FC<IProps> = ({ color }) => {
     >
       <Stack spacing={0.1}>
         {colors.map((color, index) => (
-          <ColorTab
-            key={color[1]}
-            color={color[1]}
-            legend={LEGENDS.deaths[index]}
-          />
+          <ColorTab key={color[1]} color={color[1]} legend={legend[index]} />
         ))}
       </Stack>
     </Paper>

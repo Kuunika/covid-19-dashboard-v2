@@ -1,5 +1,6 @@
+import { IScale } from "../interfaces";
 import * as TABS from "./tabs";
-const activeCases = [
+const activeCases: IScale[] = [
   {
     lower: 0,
     upper: 0,
@@ -30,16 +31,16 @@ const activeCases = [
   },
 ];
 
-const deaths = activeCases;
+const deaths: IScale[] = activeCases;
 
-const recovered = [
+const recovered: IScale[] = [
   {
     lower: 0,
     upper: 0,
   },
   {
     lower: 1,
-    upper: 400,
+    upper: 499,
   },
   {
     lower: 500,
@@ -63,7 +64,7 @@ const recovered = [
   },
 ];
 
-const confirmed = recovered;
+const confirmed: IScale[] = recovered;
 
 export default {
   [TABS.RECOVERED]: recovered,
