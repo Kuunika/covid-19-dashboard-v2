@@ -23,3 +23,9 @@ export type IScale = {
 export type IColor = { [key: number]: string };
 
 export type ITabs = "activeCases" | "deaths";
+
+export type IMobileStats = {
+  title: string;
+  value: string | number;
+  subTitle?: string;
+};

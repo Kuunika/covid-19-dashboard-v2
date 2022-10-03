@@ -13,10 +13,10 @@ import {
 } from "../contexts/aggregates";
 
 interface IProps {
-  districts: DistrictAggregate[] | undefined;
+  districts: DistrictAggregate[];
 }
 
-const Home: NextPage = ({ districts }) => {
+const Home: NextPage<IProps> = ({ districts }) => {
   const { saveAggregate } = useContext(
     DistrictAggregateContext
   ) as DistrictAggregateContextType;

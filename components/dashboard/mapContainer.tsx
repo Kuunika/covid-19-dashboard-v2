@@ -7,8 +7,8 @@ import {
 } from "../../contexts/tabSelection";
 import mapData from "../../fixtures/features.json";
 import { Point } from "../../interfaces";
-import ControlPanel from "./mapComponts/control-panel";
-import MapLayer from "./mapComponts/mapLayer";
+import ControlPanel from "./mapComponents/control-panel";
+import MapLayer from "./mapComponents/mapLayer";
 
 export default function MapContainer() {
   const { color, activeTab, scale, legend } = useContext(
@@ -28,7 +28,13 @@ export default function MapContainer() {
     );
   });
   return (
-    <Paper sx={{ position: "relative" }}>
+    <Paper
+      sx={{
+        position: "relative",
+        borderTopLeftRadius: 1,
+        borderTopRightRadius: 1,
+      }}
+    >
       <Map
         onMouseMove={(event) =>
           setCurrentCoordinates({

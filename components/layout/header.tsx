@@ -6,10 +6,10 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-
+import COLORS from "../../themes/siteColors";
 export default function Header() {
   return (
-    <AppBar position="fixed">
+    <AppBar position="fixed" sx={{ backgroundColor: COLORS.primaryColor }}>
       <Toolbar>
         <IconButton
           size="large"
@@ -23,6 +23,9 @@ export default function Header() {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           COVID19 Dashboard
         </Typography>
+        <Button color="inherit">vaccine certificate</Button>
+        <Button color="inherit">situation reports</Button>
+        <Button color="inherit">Phylodynamics</Button>
         <Button color="inherit">Login</Button>
       </Toolbar>
     </AppBar>

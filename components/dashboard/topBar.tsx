@@ -4,6 +4,7 @@ import {
   TabSelectionContext,
   TabSelectionType,
 } from "../../contexts/tabSelection";
+import COLORS from "../../themes/siteColors";
 
 export default function TopBar() {
   const { title } = useContext(TabSelectionContext) as TabSelectionType;
@@ -14,7 +15,7 @@ export default function TopBar() {
         padding: 1,
         justifyContent: "center",
         textTransform: "capitalize",
-        color: "#007092",
+        color: COLORS.primaryColor,
         borderBottomRightRadius: 1,
         borderBottomLeftRadius: 1,
       }}
