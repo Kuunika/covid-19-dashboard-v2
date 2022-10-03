@@ -12,16 +12,16 @@ export default function DesktopView() {
       spacing={2}
       justifyContent="center"
     >
-      <Grid item>
+      <Grid item lg={2}>
         <LeftDashDataCells />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item lg={6}>
         <Stack>
           <TopBar />
           <MapContainer />
         </Stack>
       </Grid>
-      <Grid item>
+      <Grid item lg={2}>
         <RightDashDataCells />
       </Grid>
     </Grid>
