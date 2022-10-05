@@ -7,7 +7,9 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import COLORS from "../../themes/siteColors";
 import { useMediaQuery, useTheme } from "@mui/material";
+import Link from "next/link";
 import DashboardMenu from "./dashboardMenu";
+import CertificateMenu from "./certificateMenu";
 
 export default function Header() {
   const theme = useTheme();
@@ -21,11 +23,15 @@ export default function Header() {
         </Typography>
         {matches ? (
           <>
-            <Button color="inherit">Home</Button>
-            <Button color="inherit">Generate certificate</Button>
+            <Link href="/">
+              <Button color="inherit">Home</Button>
+            </Link>
+            <CertificateMenu />
             <Button color="inherit">situation reports</Button>
             <Button color="inherit">Phylodynamics</Button>
-            <Button color="inherit">Login</Button>
+            <Link href="/login">
+              <Button color="inherit">Login</Button>
+            </Link>
           </>
         ) : (
           <DashboardMenu />
