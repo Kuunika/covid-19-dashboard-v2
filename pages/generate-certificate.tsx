@@ -1,7 +1,18 @@
-import { Alert, Box, Paper, TextField, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Paper,
+  TextField,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import BasicButton from "../components/common/button";
 
 export default function GenerateCertificate() {
+  const theme = useTheme();
+  const matchedSM = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <Box
       sx={{
@@ -11,7 +22,6 @@ export default function GenerateCertificate() {
         height: "100vh",
       }}
     >
-      {/* <Paper sx={{ pt: "20px", pb: "50px", px: "20px" }}> */}
       <Box
         component="form"
         sx={{
@@ -20,7 +30,7 @@ export default function GenerateCertificate() {
           alignItems: "center",
           justifyContent: "center",
 
-          "& > :not(style)": { my: 1, width: "45ch" },
+          "& > :not(style)": { my: 1, width: `${matchedSM ? "30ch" : "45ch"}` },
         }}
         noValidate
         autoComplete="off"
@@ -40,7 +50,6 @@ export default function GenerateCertificate() {
           <strong>Call 929 if you experience any issue.</strong>
         </Typography>
       </Box>
-      {/* </Paper> */}
     </Box>
   );
 }

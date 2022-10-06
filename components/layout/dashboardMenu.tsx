@@ -4,7 +4,6 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { IconButton, Link } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import colors from "../../themes/colors";
 import siteColors from "../../themes/siteColors";
 
 export default function DashboardMenu() {
@@ -56,7 +55,9 @@ export default function DashboardMenu() {
         </Link>
         <MenuItem onClick={handleClose}>situation reports</MenuItem>
         <MenuItem onClick={handleClose}>Phylodynamics</MenuItem>
-        <MenuItem onClick={handleClose}>More Dashboards</MenuItem>
+        <Link href="/login">
+          <MenuItem onClick={handleClose}>More Dashboards</MenuItem>
+        </Link>
       </Menu>
     </div>
   );

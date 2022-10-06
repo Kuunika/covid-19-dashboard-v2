@@ -1,7 +1,9 @@
-import { Box, Paper, TextField } from "@mui/material";
+import { Box, Paper, TextField, useMediaQuery, useTheme } from "@mui/material";
 import BasicButton from "../components/common/button";
 
 export default function Login() {
+  const theme = useTheme();
+  const matchedSM = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <Box
       sx={{
@@ -11,7 +13,7 @@ export default function Login() {
         height: "100vh",
       }}
     >
-      <Paper sx={{ padding: "10px", width: "40ch" }}>
+      <Paper sx={{ padding: "10px", width: `${matchedSM ? "30ch" : "40ch"}` }}>
         <Box
           component="form"
           sx={{
