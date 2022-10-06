@@ -15,6 +15,9 @@ export default function Header() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("lg"));
 
+  const logoDimension = matches ? 80 : 40;
+  const fontSize = matches ? "h6" : "body2";
+
   return (
     <AppBar position="fixed" sx={{ backgroundColor: COLORS.primaryColor }}>
       <Toolbar sx={{ padding: "5px" }}>
@@ -27,22 +30,24 @@ export default function Header() {
               "&:hover": { cursor: "pointer" },
             }}
           >
-            <Image src="/Logo.png" width={80} height={80} />
-            <Box>
-              <Typography variant="h6" component="div">
-                Ministry Of Health - Malawi.
-              </Typography>
-              <Typography variant="h6" component="div">
-                COVID-19 National Information Dashboard.
-              </Typography>
-            </Box>
+            <Image
+              src="/Logo.png"
+              width={logoDimension}
+              height={logoDimension}
+            />
+
+            <Typography variant={fontSize} component="div">
+              Ministry Of Health - Malawi.
+              <br />
+              COVID-19 National Information Dashboard.
+            </Typography>
           </Box>
         </Link>
         {matches ? (
           <>
             <CertificateMenu />
             <Button color="inherit">situation reports</Button>
-            <Link href="#phylodynamics">
+            <Link href="/#phylodynamics" sm>
               <Button color="inherit">Phylodynamics</Button>
             </Link>
             <Link href="/login">
