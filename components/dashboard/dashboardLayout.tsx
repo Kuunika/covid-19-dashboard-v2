@@ -10,14 +10,14 @@ export default function DashboardLayout() {
       {matches ? <DesktopView /> : <MobileView />}
 
       <Box
-        sx={{ px: `${matches ? "100px" : "0px"}`, mt: "20px", width: "100%" }}
+        sx={{ px: `${matches ? "100px" : "20px"}`, mt: "10px", width: "100%" }}
       >
         <iframe
           id="inlineFrameExample"
           title="Inline Frame Example"
           width="100%"
           height="800px"
-          src="https://phylodynamics2.pandemicprepardness.org/SARS-CoV-2/Malawi"
+          src="https://covid19.who.int/"
         ></iframe>
       </Box>
     </>

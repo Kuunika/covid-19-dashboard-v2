@@ -23,9 +23,6 @@ export default function Header() {
         </Typography>
         {matches ? (
           <>
-            <Link href="/">
-              <Button color="inherit">Home</Button>
-            </Link>
             <CertificateMenu />
             <Button color="inherit">situation reports</Button>
             <Button color="inherit">Phylodynamics</Button>

@@ -2,7 +2,7 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { IconButton } from "@mui/material";
+import { IconButton, Link } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import colors from "../../themes/colors";
 import siteColors from "../../themes/siteColors";
@@ -48,9 +48,12 @@ export default function DashboardMenu() {
           },
         }}
       >
-        <MenuItem onClick={handleClose}>Home</MenuItem>
-        <MenuItem onClick={handleClose}>Generate Certificate</MenuItem>
-        <MenuItem onClick={handleClose}>Validate Certificate</MenuItem>
+        <Link href="/generate-certificate">
+          <MenuItem onClick={handleClose}>Generate Certificate</MenuItem>
+        </Link>
+        <Link href="/validate-certificate">
+          <MenuItem onClick={handleClose}>Validate Certificate</MenuItem>
+        </Link>
         <MenuItem onClick={handleClose}>situation reports</MenuItem>
         <MenuItem onClick={handleClose}>Phylodynamics</MenuItem>
         <MenuItem onClick={handleClose}>More Dashboards</MenuItem>
