@@ -47,15 +47,17 @@ export default function DashboardMenu() {
           },
         }}
       >
-        <Link href="/generate-certificate">
+        <Link href="/generate-certificate" sx={{ textDecoration: "none" }}>
           <MenuItem onClick={handleClose}>Generate Certificate</MenuItem>
         </Link>
-        <Link href="/validate-certificate">
+        <Link href="/validate-certificate" sx={{ textDecoration: "none" }}>
           <MenuItem onClick={handleClose}>Validate Certificate</MenuItem>
         </Link>
         <MenuItem onClick={handleClose}>situation reports</MenuItem>
-        <MenuItem onClick={handleClose}>Phylodynamics</MenuItem>
-        <Link href="/login">
+        <Link href="/#phylodynamics" sx={{ textDecoration: "none" }}>
+          <MenuItem onClick={handleClose}>Phylodynamics</MenuItem>
+        </Link>
+        <Link href="/login" sx={{ textDecoration: "none" }}>
           <MenuItem onClick={handleClose}>More Dashboards</MenuItem>
         </Link>
       </Menu>

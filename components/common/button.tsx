@@ -6,12 +6,16 @@ import { Troubleshoot } from "@mui/icons-material";
 
 type IProps = {
   title: string;
+  type?: string;
+  disabled?: boolean;
 };
 
-export default function BasicButton({ title }: IProps) {
+export default function BasicButton({ title, type, disabled }: IProps) {
   return (
     <Button
+      disabled={disabled}
       variant="contained"
+      type="submit"
       size="large"
       sx={{
         backgroundColor: colors.primaryColor,
