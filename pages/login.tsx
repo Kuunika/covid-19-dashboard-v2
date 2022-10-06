@@ -100,7 +100,7 @@ export default function Login() {
             }
             error={passTouched && passError}
           />
-          <BasicButton title="Login" disabled={passError || passError} />
+          <BasicButton title="Login" />
         </Box>
       </Paper>
     </Box>
