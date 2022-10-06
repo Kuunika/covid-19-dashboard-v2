@@ -7,7 +7,7 @@ const MobileStatsContainer: FC<{ stats: IMobileStats[] }> = ({ stats }) => {
   return (
     <Paper sx={{ display: "flex", justifyContent: "center" }}>
       {stats.map((stat) => (
-        <MobileStats title={stat.title} value={stat.value} />
+        <MobileStats key={stat.title} title={stat.title} value={stat.value} />
       ))}
     </Paper>
   );

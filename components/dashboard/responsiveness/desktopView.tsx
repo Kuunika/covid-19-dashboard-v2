@@ -7,7 +7,7 @@ import TopBar from "../topBar";
 export default function DesktopView() {
   return (
     <Grid
-      sx={{ marginTop: 10, mx: 2 }}
+      sx={{ marginTop: 15, mx: 2 }}
       container
       spacing={2}
       justifyContent="center"

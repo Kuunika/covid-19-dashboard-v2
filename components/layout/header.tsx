@@ -3,13 +3,13 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+import Image from "next/image";
 import COLORS from "../../themes/siteColors";
 import { useMediaQuery, useTheme } from "@mui/material";
 import Link from "next/link";
 import DashboardMenu from "./dashboardMenu";
 import CertificateMenu from "./certificateMenu";
+import { Box } from "@mui/system";
 
 export default function Header() {
   const theme = useTheme();
@@ -17,15 +17,34 @@ export default function Header() {
 
   return (
     <AppBar position="fixed" sx={{ backgroundColor: COLORS.primaryColor }}>
-      <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          COVID19 Dashboard
-        </Typography>
+      <Toolbar sx={{ padding: "5px" }}>
+        <Link href="/">
+          <Box
+            sx={{
+              display: "flex",
+              flexGrow: 1,
+              alignItems: "center",
+              "&:hover": { cursor: "pointer" },
+            }}
+          >
+            <Image src="/Logo.png" width={80} height={80} />
+            <Box>
+              <Typography variant="h6" component="div">
+                Ministry Of Health - Malawi.
+              </Typography>
+              <Typography variant="h6" component="div">
+                COVID-19 National Information Dashboard.
+              </Typography>
+            </Box>
+          </Box>
+        </Link>
         {matches ? (
           <>
             <CertificateMenu />
             <Button color="inherit">situation reports</Button>
-            <Button color="inherit">Phylodynamics</Button>
+            <Link href="#phylodynamics">
+              <Button color="inherit">Phylodynamics</Button>
+            </Link>
             <Link href="/login">
               <Button color="inherit">Login</Button>
             </Link>

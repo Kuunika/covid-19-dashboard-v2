@@ -13,7 +13,7 @@ export default function DashboardLayout() {
         sx={{ px: `${matches ? "100px" : "20px"}`, mt: "10px", width: "100%" }}
       >
         <iframe
-          id="inlineFrameExample"
+          id="phylodynamics"
           title="Inline Frame Example"
           width="100%"
           height="800px"
