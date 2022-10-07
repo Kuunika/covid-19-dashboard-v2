@@ -2,21 +2,31 @@ import * as React from "react";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import colors from "../../themes/siteColors";
-import { Troubleshoot } from "@mui/icons-material";
 
 type IProps = {
   title: string;
   type?: string;
   disabled?: boolean;
+  size?: "large" | "small";
+  sx?: any;
+  onClick?: () => void;
 };
 
-export default function BasicButton({ title, type, disabled }: IProps) {
+export default function BasicButton({
+  title,
+  type,
+  disabled,
+  size = "large",
+  sx,
+  onClick,
+}: IProps) {
   return (
     <Button
+      onClick={onClick}
       disabled={disabled}
       variant="contained"
       type="submit"
-      size="large"
+      size={size}
       sx={{
         backgroundColor: colors.primaryColor,
         color: "#fff",
@@ -24,6 +34,7 @@ export default function BasicButton({ title, type, disabled }: IProps) {
           backgroundColor: colors.primaryColor,
           opacity: 0.9,
         },
+        ...sx,
       }}
     >
       {title}

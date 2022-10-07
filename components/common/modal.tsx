@@ -35,7 +35,11 @@ export default function BasicModal({ open, message }: IProps) {
       >
         <Box sx={style}>
           <Image src={"/rolling.gif"} width={50} height={50} />
-          <Typography variant="subtitle2" color={"#024360"} sx={{ mt: "3ch" }}>
+          <Typography
+            variant="subtitle2"
+            color={"#024360"}
+            sx={{ textTransform: "lowercase", mt: "3ch" }}
+          >
             {message}
           </Typography>
         </Box>
