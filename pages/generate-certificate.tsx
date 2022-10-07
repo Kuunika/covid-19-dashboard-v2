@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import BasicButton from "../components/common/button";
+import BasicModal from "../components/common/modal";
 
 export default function GenerateCertificate() {
   const theme = useTheme();
@@ -16,9 +17,15 @@ export default function GenerateCertificate() {
   const [epiNumber, setEpiNumber] = useState("");
   const [error, setError] = useState(false);
   const [touched, setTouched] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setSubmitting(true);
+
+    setTimeout(() => {
+      setSubmitting(false);
+    }, 2000);
     console.log(epiNumber);
   };
 
@@ -69,6 +76,7 @@ export default function GenerateCertificate() {
           <strong>Call 929 if you experience any issue.</strong>
         </Typography>
       </Box>
+      <BasicModal open={submitting} message={"fetching certificate"} />
     </Box>
   );
 }
