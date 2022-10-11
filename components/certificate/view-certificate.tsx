@@ -17,10 +17,7 @@ export default function ViewCertificate() {
   const router = useRouter();
 
   function onDocumentLoadSuccess({ numPages }: any) {
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-
+    setLoading(false);
     setNumPages(numPages);
   }
 
@@ -29,7 +26,7 @@ export default function ViewCertificate() {
       file="/sample-certificate.pdf"
       onLoadSuccess={onDocumentLoadSuccess}
     >
-      <Page pageNumber={pageNumber} width={matchSM ? 300 : 600} />
+      <Page pageNumber={pageNumber} width={matchSM ? 300 : 500} />
     </Document>
   );
 
@@ -61,6 +58,7 @@ export default function ViewCertificate() {
 
         <Certificate />
       </Box>
+
       <BasicModal open={loading} message={"pdf loading"} />
     </Box>
   );

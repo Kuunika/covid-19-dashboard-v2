@@ -10,10 +10,14 @@ import Link from "next/link";
 import DashboardMenu from "./dashboardMenu";
 import CertificateMenu from "./certificateMenu";
 import { Box } from "@mui/system";
+import { useRouter } from "next/router";
 
 export default function Header() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("lg"));
+  const router = useRouter();
+
+  const navigate = (endpoint: string) => router.push(endpoint);
 
   const logoDimension = matches ? 80 : 40;
   const fontSize = matches ? "h6" : "body2";
@@ -21,28 +25,24 @@ export default function Header() {
   return (
     <AppBar position="fixed" sx={{ backgroundColor: COLORS.primaryColor }}>
       <Toolbar sx={{ padding: "5px" }}>
-        <Link href="/">
-          <Box
-            sx={{
-              display: "flex",
-              flexGrow: 1,
-              alignItems: "center",
-              "&:hover": { cursor: "pointer" },
-            }}
-          >
-            <Image
-              src="/Logo.png"
-              width={logoDimension}
-              height={logoDimension}
-            />
+        <Box
+          onClick={() => navigate("/")}
+          sx={{
+            display: "flex",
+            flexGrow: 1,
+            alignItems: "center",
+            "&:hover": { cursor: "pointer" },
+          }}
+        >
+          <Image src="/Logo.png" width={logoDimension} height={logoDimension} />
 
-            <Typography variant={fontSize} component="div">
-              Ministry Of Health - Malawi.
-              <br />
-              COVID-19 National Information Dashboard.
-            </Typography>
-          </Box>
-        </Link>
+          <Typography variant={fontSize} component="div">
+            Ministry Of Health - Malawi.
+            <br />
+            COVID-19 National Information Dashboard.
+          </Typography>
+        </Box>
+
         {matches ? (
           <>
             <CertificateMenu />

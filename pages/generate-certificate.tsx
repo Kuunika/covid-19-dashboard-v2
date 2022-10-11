@@ -7,6 +7,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import BasicButton from "../components/common/button";
 import BasicModal from "../components/common/modal";
@@ -18,6 +19,7 @@ export default function GenerateCertificate() {
   const [error, setError] = useState(false);
   const [touched, setTouched] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,6 +27,7 @@ export default function GenerateCertificate() {
 
     setTimeout(() => {
       setSubmitting(false);
+      router.push("/view-certificate");
     }, 2000);
     console.log(epiNumber);
   };

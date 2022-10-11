@@ -25,6 +25,7 @@
     "react-dom": "18.2.0",
     "react-map-gl": "^7.0.19",
     "react-pdf": "^5.7.2",
+    "react-qr-reader": "^3.0.0-beta-1",
     "styled-components": "^5.3.5"
   },
   "devDependencies": {
@@ -33,6 +34,7 @@
     "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6",
     "@types/react-pdf": "^5.7.2",
+    "@types/react-qr-reader": "^2.1.4",
     "eslint": "8.23.1",
     "eslint-config-next": "12.3.0",
     "typescript": "4.8.3"
