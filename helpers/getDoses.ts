@@ -1,15 +1,15 @@
 import { IDosageIndicator } from "../interfaces";
 
-export default function getDosages(dosageIndicators: IDosageIndicator[]) {
-  const doseNumber = (dosage: IDosageIndicator) =>
-    dosage.dosageNumber.toString().replaceAll(" ", "").toLowerCase();
+export function getDosages(dosageIndicators: any) {
+  const doseNumber = (dosage: any) =>
+    dosage.dosageNumber.toString().replace(" ", "").toLowerCase();
 
   const boosterShots = dosageIndicators.filter(
-    (dosage) => doseNumber(dosage) === "boosterdosage"
+    (dosage: any) => doseNumber(dosage) === "boosterdosage"
   );
 
   const dosages = dosageIndicators
-    .filter((dosage) => doseNumber(dosage) !== "boosterdosage")
+    .filter((dosage: any) => doseNumber(dosage) !== "boosterdosage")
     .sort((a, b) => {
       const doseOne = Number(a.dosageNumber);
       const doseTwo = Number(b.dosageNumber);
