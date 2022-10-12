@@ -29,3 +29,25 @@ export type IMobileStats = {
   value: string | number;
   subTitle?: string;
 };
+
+export type IDosageIndicator = {
+  dosageNumber: number | string;
+  vaccineName: string;
+  manufacture: string;
+  type: string;
+  batchNumber: string;
+  vaccinationSite: string;
+  vaccinationDate: Date;
+  expirationDate: Date;
+};
+
+export type ICertificate = {
+  signature: string;
+  firstname: string;
+  lastname: string;
+  birthdate: Date;
+  epiNo: string;
+  updatedAt: Date;
+  createdAt: Date;
+  dosageIndicators: IDosageIndicator[];
+};
