@@ -13,7 +13,6 @@ export function getDosages(dosageIndicators: any) {
     .sort((a, b) => {
       const doseOne = Number(a.dosageNumber);
       const doseTwo = Number(b.dosageNumber);
-
       return doseOne - doseTwo;
     });
 

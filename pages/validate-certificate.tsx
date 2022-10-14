@@ -33,6 +33,8 @@ export default function () {
   const dosages = getDosages(johndoe.dosageIndicators).dosages;
   const boosterShots = getDosages(johndoe.dosageIndicators).boosterShots;
 
+  console.log(boosterShots);
+
   return (
     <>
       <Box
@@ -59,9 +61,51 @@ export default function () {
         </Typography>
         <Box sx={{ display: "flex", alignItems: "center" }}>
           {dosages.map((dosage: IDosageIndicator) => {
-            return <DosageIndicatorBox dosage={dosage} />;
+            return (
+              <DosageIndicatorBox key={dosage.dosageNumber} dosage={dosage} />
+            );
           })}
         </Box>
+        {boosterShots.length ? (
+          <>
+            <Box>
+              {boosterShots.map((shot: IDosageIndicator) => (
+                <Box
+                  sx={{
+                    border: "2px solid #092008",
+                    borderRadius: "10px",
+                    mt: "10px",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      padding: "5px",
+                      // backgroundColor: "#DCE7DD",
+                    }}
+                  >
+                    <Typography variant="h5" color={"#092008"}>
+                      Booster Dose
+                    </Typography>
+                    <Box sx={{ display: "flex" }}>
+                      <BoxRow label="site" value={shot.vaccinationSite} />
+                      <BoxRow label="date" value={shot.vaccinationDate} />
+                    </Box>
+                  </Box>
+                  <Box sx={{ display: "flex" }}>
+                    <BoxRow label="name" value={shot.vaccineName} />
+                    <BoxRow label="type" value={shot.type} />
+                    <BoxRow label="batch number" value={shot.batchNumber} />
+                    <BoxRow label="expiration" value={shot.expirationDate} />
+                  </Box>
+                </Box>
+              ))}
+            </Box>
+          </>
+        ) : null}
       </Box>
     </>
   );
@@ -76,12 +120,12 @@ const BoxRow = ({ label, value }: IBoxRow) => {
     <Box sx={{ display: "flex", padding: "2px", margin: "2px" }}>
       <Typography
         sx={{ mr: "4px", textTransform: "capitalize" }}
-        variant="body1"
+        variant="body2"
         color="black"
       >
         {label}:
       </Typography>
-      <Typography variant="body1" color="black">
+      <Typography variant="body2" color="black">
         {value}
       </Typography>
     </Box>
