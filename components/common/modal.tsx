@@ -1,4 +1,4 @@
-import * as React from "react";
+import { FC } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -25,7 +25,7 @@ type IProps = {
   message?: string;
 };
 
-export default function BasicModal({ open, message }: IProps) {
+export const BasicModal: FC<IProps> = ({ open, message, children }) => {
   return (
     <div>
       <Modal
@@ -33,17 +33,8 @@ export default function BasicModal({ open, message }: IProps) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          <Image src={"/rolling.gif"} width={50} height={50} />
-          <Typography
-            variant="subtitle2"
-            color={"#024360"}
-            sx={{ textTransform: "lowercase", mt: "3ch" }}
-          >
-            {message}
-          </Typography>
-        </Box>
+        <Box sx={style}>{children}</Box>
       </Modal>
     </div>
   );
-}
+};

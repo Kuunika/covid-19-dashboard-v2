@@ -3,9 +3,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import BasicButton from "../common/button";
-import BasicModal from "../common/modal";
+
 import colors from "../../themes/siteColors";
 import { useRouter } from "next/router";
+import { LoadingModal } from "./certModals";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 export default function ViewCertificate() {
@@ -59,7 +60,7 @@ export default function ViewCertificate() {
         <Certificate />
       </Box>
 
-      <BasicModal open={loading} message={"pdf loading"} />
+      <LoadingModal open={loading} message={"pdf loading"} />
     </Box>
   );
 }
