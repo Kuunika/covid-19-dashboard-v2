@@ -1,16 +1,13 @@
-import { FC } from "react";
+import { FC, PropsWithChildren } from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import Image from "next/image";
 
 const style = {
   position: "absolute",
-  top: "50%",
+  top: "10%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 300,
+  width: 700,
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
@@ -18,14 +15,17 @@ const style = {
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
+  marginTop: "100px",
 };
 
 type IProps = {
   open: boolean;
-  message?: string;
 };
 
-export const BasicModal: FC<IProps> = ({ open, message, children }) => {
+export const BasicModal: FC<PropsWithChildren<IProps>> = ({
+  open,
+  children,
+}) => {
   return (
     <div>
       <Modal

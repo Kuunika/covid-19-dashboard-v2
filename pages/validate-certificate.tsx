@@ -1,7 +1,7 @@
 import { Box, Paper, Typography } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
 import { QrReader } from "react-qr-reader";
-import { ViewValidationCert } from "../components/certificate/viewValidationCert";
+import { ValidationModal } from "../components/certificate/certModals";
 import { johndoe } from "../constants/certdata";
 import { ICertificate } from "../interfaces";
 import { searchCertBySignature } from "../services/api";
@@ -32,7 +32,11 @@ export default function () {
 
   return (
     <>
-      <ViewValidationCert certificate={johndoe as ICertificate} />
+      <ValidationModal
+        open={true}
+        loading={false}
+        certificate={johndoe as ICertificate}
+      />
     </>
   );
 }

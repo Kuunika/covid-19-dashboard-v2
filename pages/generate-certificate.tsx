@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { GenerateCertModal } from "../components/certificate/certModals";
+import { LoadingModal } from "../components/certificate/certModals";
 import BasicButton from "../components/common/button";
 
 export default function GenerateCertificate() {
@@ -79,7 +79,7 @@ export default function GenerateCertificate() {
           <strong>Call 929 if you experience any issue.</strong>
         </Typography>
       </Box>
-      <GenerateCertModal open={submitting} message={"fetching certificate"} />
+      <LoadingModal open={submitting} message={"fetching certificate"} />
     </Box>
   );
 }
