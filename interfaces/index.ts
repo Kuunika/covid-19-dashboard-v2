@@ -51,3 +51,9 @@ export type ICertificate = {
   createdAt: Date;
   dosageIndicators: IDosageIndicator[];
 };
+
+export type IDashboard = {
+  dashboard_name: string;
+  dashboard_url: string;
+  id: string;
+};
