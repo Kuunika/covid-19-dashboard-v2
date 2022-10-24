@@ -1,11 +1,16 @@
 import { Box, Paper, TextField, useMediaQuery, useTheme } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import BasicButton from "../components/common/button";
+import { DashboardContext, DashboardContextType } from "../contexts/dashboards";
 import { login } from "../services/api";
 
 export default function Login() {
   const theme = useTheme();
   const matchedSM = useMediaQuery(theme.breakpoints.down("sm"));
+  const { saveDashboards } = useContext(
+    DashboardContext
+  ) as DashboardContextType;
+
   const [formData, setFormData] = useState({
     username: { value: "", error: false, touched: false },
     password: { value: "", error: false, touched: false },
@@ -26,7 +31,10 @@ export default function Login() {
     e.preventDefault();
     const data = await login(formData.username.value, formData.password.value);
 
-    console.log(data);
+    if (data) {
+      console.log(data.user.dashboards);
+      saveDashboards(data.user.dashboards);
+    }
   };
 
   const handleChange = (e: any) => {

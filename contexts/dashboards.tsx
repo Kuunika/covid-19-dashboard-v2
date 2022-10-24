@@ -3,7 +3,7 @@ import { IDashboard } from "../interfaces";
 
 export type DashboardContextType = {
   dashboards: IDashboard[];
-  saveDashboards: (districts: IDashboard[]) => void;
+  saveDashboards: (dashboards: IDashboard[]) => void;
   getDashboard: (id: string) => IDashboard | boolean;
 };
 
@@ -14,8 +14,10 @@ export const DashboardContext = createContext<DashboardContextType | null>(
 const DashboardProvider: FC = ({ children }) => {
   const [dashboards, setDashboards] = useState<IDashboard[]>([]);
 
-  const saveDashboards = (Dashboards: IDashboard[]) =>
-    setDashboards(Dashboards);
+  const saveDashboards = (dashs: IDashboard[]) => {
+    setDashboards(dashs);
+    console.log(dashboards);
+  };
 
   const getDashboard = (id: string) => {
     const dashboard = dashboards.find((dash) => dash.id === id);
