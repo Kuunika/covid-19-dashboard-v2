@@ -1,9 +1,11 @@
 import Image from "next/image";
 import { Box, Typography } from "@mui/material";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { BasicModal } from "../common/modal";
 import { ViewValidationCert } from "./viewValidationCert";
 import { ICertificate } from "../../interfaces";
+import Button from "@mui/material/Button";
+import colors from "../../themes/siteColors";
 
 type IProps = {
   open: boolean;
@@ -21,12 +23,34 @@ export const LoadingModal: FC<IProps> = ({ open, message }) => {
 export const ValidationModal: FC<
   IProps & { loading: boolean; certificate: ICertificate }
 > = ({ loading, open, message, certificate }) => {
+  const [modelOpen, setModelOpen] = useState(false);
+
+  useEffect(() => {
+    setModelOpen(open);
+  }, [open]);
+
   return (
-    <BasicModal open={open}>
+    <BasicModal open={modelOpen}>
       {loading ? (
         <LoadingImage message={message} />
       ) : (
-        <ViewValidationCert certificate={certificate} />
+        <>
+          <ViewValidationCert certificate={certificate} />
+          <Button
+            onClick={() => setModelOpen(false)}
+            sx={{
+              backgroundColor: colors.primaryColor,
+              color: "#fff",
+              marginTop: "10px",
+              "&:hover": {
+                backgroundColor: colors.primaryColor,
+                opacity: 0.8,
+              },
+            }}
+          >
+            ok
+          </Button>
+        </>
       )}
     </BasicModal>
   );
