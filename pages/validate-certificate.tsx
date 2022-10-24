@@ -7,6 +7,8 @@ import { ICertificate } from "../interfaces";
 import { searchCertBySignature } from "../services/api";
 
 export default function () {
+  const [open, setOpen] = useState(true);
+
   useEffect(() => {
     console.log(johndoe);
   }, []);
@@ -18,9 +20,11 @@ export default function () {
       try {
         const jsonData = JSON.parse(result);
         certificate = await searchCertBySignature(jsonData.signature);
+        setOpen(true);
       } catch (error) {
         const signature = result?.text.split("?sg=")[1];
         certificate = await searchCertBySignature(signature);
+        setOpen(true);
       }
       return;
     }
@@ -32,8 +36,9 @@ export default function () {
 
   return (
     <>
+      <QrReader onResult={handleScan} />
       <ValidationModal
-        open={true}
+        open={open}
         loading={false}
         certificate={johndoe as ICertificate}
       />

@@ -1,6 +1,7 @@
 import { Box, Paper, TextField, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import BasicButton from "../components/common/button";
+import { login } from "../services/api";
 
 export default function Login() {
   const theme = useTheme();
@@ -21,9 +22,11 @@ export default function Login() {
     error: userError,
   } = formData.username;
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(formData);
+    const data = await login(formData.username.value, formData.password.value);
+
+    console.log(data);
   };
 
   const handleChange = (e: any) => {

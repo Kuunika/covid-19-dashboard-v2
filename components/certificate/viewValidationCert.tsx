@@ -1,4 +1,5 @@
 import { Box, Typography, Paper } from "@mui/material";
+import Image from "next/image";
 import { FC } from "react";
 import { humanReadableDate } from "../../helpers/dates";
 import { getDosages } from "../../helpers/getDoses";
@@ -20,7 +21,8 @@ export function ViewValidationCert({ certificate }: IProp) {
         marginTop: "30ch",
       }}
     >
-      <Typography variant="body1" color={"black"}>
+      <Image src={"/check.png"} height={80} width={80} />
+      <Typography variant="body1" sx={{ marginTop: "15px" }} color={"black"}>
         Name
       </Typography>
       <Typography
@@ -45,6 +47,7 @@ export function ViewValidationCert({ certificate }: IProp) {
           <Box>
             {boosterShots.map((shot: IDosageIndicator) => (
               <Box
+                key={shot.dosageNumber}
                 sx={{
                   border: "2px solid #092008",
                   borderRadius: "10px",
