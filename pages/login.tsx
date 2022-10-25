@@ -2,20 +2,15 @@ import { Box, Paper, TextField, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState, useContext } from "react";
 import BasicButton from "../components/common/button";
 import { DashboardContext, DashboardContextType } from "../contexts/dashboards";
-import { useAuth } from "../hooks/useAuth";
 import { login } from "../services/api";
 
 export default function Login() {
   const theme = useTheme();
-  const { isAuthenticated, storeToken } = useAuth();
+  const [submitting, setSubmitting] = useState(false);
   const matchedSM = useMediaQuery(theme.breakpoints.down("sm"));
   const { saveDashboards, auth } = useContext(
     DashboardContext
   ) as DashboardContextType;
-
-  useEffect(() => {
-    console.log(isAuthenticated);
-  }, [isAuthenticated]);
 
   const [formData, setFormData] = useState({
     username: { value: "", error: false, touched: false },
@@ -34,12 +29,14 @@ export default function Login() {
   } = formData.username;
 
   const handleSubmit = async (e: any) => {
+    setSubmitting(true);
     e.preventDefault();
     const data = await login(formData.username.value, formData.password.value);
 
     if (data) {
       auth.storeToken(data.jwt);
       saveDashboards(data.user.dashboards);
+      setSubmitting(false);
     }
   };
 
@@ -117,7 +114,7 @@ export default function Login() {
             }
             error={passTouched && passError}
           />
-          <BasicButton title="Login" />
+          <BasicButton loading={submitting} title="Login" />
         </Box>
       </Paper>
     </Box>

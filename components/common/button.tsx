@@ -2,6 +2,7 @@ import * as React from "react";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import colors from "../../themes/siteColors";
+import CircularProgress from "@mui/material/CircularProgress";
 
 type IProps = {
   title: string;
@@ -10,6 +11,7 @@ type IProps = {
   size?: "large" | "small";
   sx?: any;
   onClick?: () => void;
+  loading?: boolean;
 };
 
 export default function BasicButton({
@@ -19,6 +21,7 @@ export default function BasicButton({
   size = "large",
   sx,
   onClick,
+  loading,
 }: IProps) {
   return (
     <Button
@@ -37,7 +40,7 @@ export default function BasicButton({
         ...sx,
       }}
     >
-      {title}
+      {loading ? <CircularProgress sx={{ color: "#fff" }} size={30} /> : title}
     </Button>
   );
 }
