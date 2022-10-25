@@ -5,7 +5,7 @@ import { IAuth, IDashboard } from "../interfaces";
 export type DashboardContextType = {
   dashboards: IDashboard[];
   saveDashboards: (dashboards: IDashboard[]) => void;
-  getDashboard: (id: string) => IDashboard | boolean;
+  getDashboard: (id: string) => IDashboard | undefined;
   auth: IAuth;
 };
 
@@ -23,10 +23,10 @@ const DashboardProvider: FC = ({ children }) => {
     console.log(dashboards);
   };
 
-  const getDashboard = (id: string) => {
+  const getDashboard = (id: string): IDashboard | undefined => {
     const dashboard = dashboards.find((dash) => dash.id === id);
 
-    return dashboard ? dashboard : false;
+    return dashboard;
   };
 
   return (
