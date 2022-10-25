@@ -3,6 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import BasicButton from "../components/common/button";
 import { DashboardContext, DashboardContextType } from "../contexts/dashboards";
 import { login } from "../services/api";
+import Alert from "@mui/material/Alert";
 
 export default function Login() {
   const theme = useTheme();
@@ -83,38 +84,47 @@ export default function Login() {
           noValidate
           autoComplete="off"
         >
-          <TextField
-            id="outlined-basic"
-            label="Username"
-            variant="outlined"
-            name="username"
-            value={userValue}
-            onChange={handleChange}
-            onBlur={() =>
-              setFormData((formData) => ({
-                ...formData,
-                username: { ...formData.username, touched: true },
-              }))
-            }
-            error={userTouched && userError}
-          />
-          <TextField
-            id="outlined-basic"
-            label="Password"
-            variant="outlined"
-            type="password"
-            name="password"
-            onChange={handleChange}
-            value={passValue}
-            onBlur={() =>
-              setFormData((formData) => ({
-                ...formData,
-                password: { ...formData.password, touched: true },
-              }))
-            }
-            error={passTouched && passError}
-          />
-          <BasicButton loading={submitting} title="Login" />
+          {!auth.isAuthenticated ? (
+            <>
+              <TextField
+                id="outlined-basic"
+                label="Username"
+                variant="outlined"
+                name="username"
+                value={userValue}
+                onChange={handleChange}
+                onBlur={() =>
+                  setFormData((formData) => ({
+                    ...formData,
+                    username: { ...formData.username, touched: true },
+                  }))
+                }
+                error={userTouched && userError}
+              />
+              <TextField
+                id="outlined-basic"
+                label="Password"
+                variant="outlined"
+                type="password"
+                name="password"
+                onChange={handleChange}
+                value={passValue}
+                onBlur={() =>
+                  setFormData((formData) => ({
+                    ...formData,
+                    password: { ...formData.password, touched: true },
+                  }))
+                }
+                error={passTouched && passError}
+              />
+              <BasicButton loading={submitting} title="Login" />
+            </>
+          ) : (
+            <Alert severity="success">
+              Logged in successfully, Please click on <b>More Dashboards</b> to
+              see all dashboards or Logout
+            </Alert>
+          )}
         </Box>
       </Paper>
     </Box>

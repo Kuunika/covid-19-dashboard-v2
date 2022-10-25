@@ -16,7 +16,31 @@ export const login = async (username: string, password: string) => {
     password,
   });
 
-  console.log(response.data);
+  if (response.ok) return response.data;
+};
+
+export const fetchDashboards = async (token: string) => {
+  const response = await api.get(
+    "dashboards",
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  if (response.ok) return response.data;
+};
+
+export const fetchCertificate = async (epiNo: string) => {
+  const response = await api.post("v1/certificates", {
+    epiNo,
+  });
+
+  if (response.ok) return response.data;
+};
+export const fetchCertificateWithSignature = async (signature: string) => {
+  const response = await api.get(`v1/certificates/${signature}`);
 
   if (response.ok) return response.data;
 };

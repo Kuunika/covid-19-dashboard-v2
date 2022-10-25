@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { LoadingModal } from "../components/certificate/certModals";
 import BasicButton from "../components/common/button";
+import { fetchCertificate } from "../services/api";
 
 export default function GenerateCertificate() {
   const theme = useTheme();
@@ -21,15 +22,13 @@ export default function GenerateCertificate() {
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
 
-    setTimeout(() => {
-      setSubmitting(false);
-      router.push("/view-certificate");
-    }, 2000);
-    console.log(epiNumber);
+    const response = await fetchCertificate(epiNumber);
+
+    router.push(`/view-certificate?signature=${response.signature}`);
   };
 
   useEffect(() => {

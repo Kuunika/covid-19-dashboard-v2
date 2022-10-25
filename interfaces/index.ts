@@ -61,5 +61,6 @@ export type IDashboard = {
 export type IAuth = {
   isAuthenticated: boolean;
   storeToken: (token: string) => void;
+  getToken: () => string;
   deleteToken: () => void;
 };

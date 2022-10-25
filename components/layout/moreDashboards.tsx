@@ -16,7 +16,6 @@ export default function MoreDashboards() {
     DashboardContext
   ) as DashboardContextType;
 
-  console.log(dashboards);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -55,7 +54,7 @@ export default function MoreDashboards() {
         }}
       >
         {dashboards.map(({ id, dashboard_name }) => (
-          <Link href={`/dashboards/${id}`}>
+          <Link key={id} href={`/dashboards/${id}`}>
             <MenuItem onClick={handleClose}>{dashboard_name}</MenuItem>
           </Link>
         ))}

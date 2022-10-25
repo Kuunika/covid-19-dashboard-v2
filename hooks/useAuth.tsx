@@ -13,6 +13,14 @@ export function useAuth() {
       setToken(token);
     }
   };
+  const getToken = () => {
+    if (isWindowDefined()) {
+      const token = localStorage.getItem(KEY);
+      setToken(token);
+      return token;
+    }
+    return "";
+  };
 
   const deleteToken = () => {
     if (isWindowDefined()) {
@@ -21,7 +29,7 @@ export function useAuth() {
     }
   };
 
-  return { isAuthenticated: Boolean(token), storeToken, deleteToken };
+  return { isAuthenticated: Boolean(token), storeToken, deleteToken, getToken };
 }
 
 const isWindowDefined = () => (typeof window !== "undefined" ? true : false);
