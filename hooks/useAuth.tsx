@@ -10,12 +10,14 @@ export function useAuth() {
   const storeToken = (token: string) => {
     if (isWindowDefined()) {
       localStorage.setItem(KEY, token);
+      setToken(token);
     }
   };
 
   const deleteToken = () => {
     if (isWindowDefined()) {
       localStorage.removeItem(KEY);
+      setToken("");
     }
   };
 

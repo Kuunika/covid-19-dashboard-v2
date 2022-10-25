@@ -1,10 +1,12 @@
 import { createContext, FC, useState } from "react";
-import { IDashboard } from "../interfaces";
+import { useAuth } from "../hooks/useAuth";
+import { IAuth, IDashboard } from "../interfaces";
 
 export type DashboardContextType = {
   dashboards: IDashboard[];
   saveDashboards: (dashboards: IDashboard[]) => void;
   getDashboard: (id: string) => IDashboard | boolean;
+  auth: IAuth;
 };
 
 export const DashboardContext = createContext<DashboardContextType | null>(
@@ -13,6 +15,8 @@ export const DashboardContext = createContext<DashboardContextType | null>(
 
 const DashboardProvider: FC = ({ children }) => {
   const [dashboards, setDashboards] = useState<IDashboard[]>([]);
+  const [authenticated, setAuthenticated] = useState(false);
+  const auth = useAuth();
 
   const saveDashboards = (dashs: IDashboard[]) => {
     setDashboards(dashs);
@@ -27,7 +31,7 @@ const DashboardProvider: FC = ({ children }) => {
 
   return (
     <DashboardContext.Provider
-      value={{ dashboards, saveDashboards, getDashboard }}
+      value={{ dashboards, saveDashboards, getDashboard, auth }}
     >
       {children}
     </DashboardContext.Provider>

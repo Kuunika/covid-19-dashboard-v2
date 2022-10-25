@@ -9,7 +9,7 @@ export default function Login() {
   const theme = useTheme();
   const { isAuthenticated, storeToken } = useAuth();
   const matchedSM = useMediaQuery(theme.breakpoints.down("sm"));
-  const { saveDashboards } = useContext(
+  const { saveDashboards, auth } = useContext(
     DashboardContext
   ) as DashboardContextType;
 
@@ -38,7 +38,7 @@ export default function Login() {
     const data = await login(formData.username.value, formData.password.value);
 
     if (data) {
-      storeToken(data.jwt);
+      auth.storeToken(data.jwt);
       saveDashboards(data.user.dashboards);
     }
   };

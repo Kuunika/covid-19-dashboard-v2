@@ -1,17 +1,25 @@
-import * as React from "react";
+import { useContext, useState, MouseEvent } from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import siteColors from "../../themes/siteColors";
 import Link from "next/link";
 import { IDashboard } from "../../interfaces";
-
-const dashboards: IDashboard[] = [];
+import {
+  DashboardContext,
+  DashboardContextType,
+} from "../../contexts/dashboards";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function MoreDashboards() {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const { dashboards, auth } = useContext(
+    DashboardContext
+  ) as DashboardContextType;
+
+  console.log(dashboards);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
@@ -29,7 +37,7 @@ export default function MoreDashboards() {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        Generate certificate
+        More Dashboards
       </Button>
 
       <Menu
@@ -51,8 +59,15 @@ export default function MoreDashboards() {
             <MenuItem onClick={handleClose}>{dashboard_name}</MenuItem>
           </Link>
         ))}
-        <Link href="/validate-certificate">
-          <MenuItem onClick={handleClose}>logout</MenuItem>
+        <Link href="">
+          <MenuItem
+            onClick={() => {
+              auth.deleteToken();
+              handleClose();
+            }}
+          >
+            logout
+          </MenuItem>
         </Link>
       </Menu>
     </div>

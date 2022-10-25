@@ -11,11 +11,17 @@ import DashboardMenu from "./dashboardMenu";
 import CertificateMenu from "./certificateMenu";
 import { Box } from "@mui/system";
 import { useRouter } from "next/router";
+import MoreDashboards from "./moreDashboards";
+import {
+  DashboardContext,
+  DashboardContextType,
+} from "../../contexts/dashboards";
 
 export default function Header() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("lg"));
   const router = useRouter();
+  const { auth } = React.useContext(DashboardContext) as DashboardContextType;
 
   const navigate = (endpoint: string) => router.push(endpoint);
 
@@ -50,9 +56,13 @@ export default function Header() {
             <Link href="/#phylodynamics" sm>
               <Button color="inherit">Phylodynamics</Button>
             </Link>
-            <Link href="/login">
-              <Button color="inherit">Login</Button>
-            </Link>
+            {!auth.isAuthenticated ? (
+              <Link href="/login">
+                <Button color="inherit">Login</Button>
+              </Link>
+            ) : (
+              <MoreDashboards />
+            )}
           </>
         ) : (
           <DashboardMenu />

@@ -11,10 +11,10 @@ import {
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Header />
       <DashboardProvider>
         <TabSelectionProvider>
           <DistrictAggregateProvider>
+            <Header />
             <Component {...pageProps} />
           </DistrictAggregateProvider>
         </TabSelectionProvider>

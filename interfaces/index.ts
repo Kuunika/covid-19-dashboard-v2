@@ -57,3 +57,9 @@ export type IDashboard = {
   dashboard_url: string;
   id: string;
 };
+
+export type IAuth = {
+  isAuthenticated: boolean;
+  storeToken: (token: string) => void;
+  deleteToken: () => void;
+};
