@@ -21,13 +21,18 @@ export const LoadingModal: FC<IProps> = ({ open, message }) => {
 };
 
 export const ValidationModal: FC<
-  IProps & { loading: boolean; certificate: ICertificate }
-> = ({ loading, open, message, certificate }) => {
+  IProps & { loading: boolean; certificate: ICertificate; onClose?: () => void }
+> = ({ loading, open, message, certificate, onClose }) => {
   const [modelOpen, setModelOpen] = useState(false);
 
   useEffect(() => {
     setModelOpen(open);
   }, [open]);
+
+  const handleClose = () => {
+    setModelOpen(false);
+    onClose && onClose();
+  };
 
   return (
     <BasicModal open={modelOpen}>
@@ -37,7 +42,7 @@ export const ValidationModal: FC<
         <>
           <ViewValidationCert certificate={certificate} />
           <Button
-            onClick={() => setModelOpen(false)}
+            onClick={handleClose}
             sx={{
               backgroundColor: colors.primaryColor,
               color: "#fff",

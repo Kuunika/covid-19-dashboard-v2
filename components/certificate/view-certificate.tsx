@@ -46,13 +46,16 @@ export default function ViewCertificate({ signature }: IProps) {
         alignItems: "center",
       }}
     >
-      <Box>
+      <Box
+        sx={{
+          minWidth: "500px",
+        }}
+      >
         <Link href={signatureUrl(signature)}>
           <a target="_blank">
             <BasicButton
               sx={{
                 borderRadius: "1px",
-
                 mb: "5px",
                 selfAlign: "left",
               }}

@@ -1,31 +1,31 @@
 import { Box, Paper, Typography } from "@mui/material";
+import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
 import { QrReader } from "react-qr-reader";
 import { ValidationModal } from "../components/certificate/certModals";
-import { johndoe } from "../constants/certdata";
-import { ICertificate } from "../interfaces";
+import { ICertificate, IDosageIndicator } from "../interfaces";
 import { searchCertBySignature } from "../services/api";
 
 export default function () {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [certificate, setCertificate] = useState({} as ICertificate);
 
-  useEffect(() => {
-    console.log(johndoe);
-  }, []);
-
+  const handleModalClose = () => {
+    setOpen(false);
+    setCertificate({});
+  };
   const handleScan = async (result, error) => {
     if (!result) return;
-    let certificate;
+
+    let response;
+
     if (!!result) {
       try {
-        const jsonData = JSON.parse(result);
-        certificate = await searchCertBySignature(jsonData.signature);
+        const signature = result.text.split("?sg=")[1];
+        response = await searchCertBySignature(signature);
+        setCertificate(response as ICertificate);
         setOpen(true);
-      } catch (error) {
-        const signature = result?.text.split("?sg=")[1];
-        certificate = await searchCertBySignature(signature);
-        setOpen(true);
-      }
+      } catch (error) {}
       return;
     }
 
@@ -40,7 +40,8 @@ export default function () {
       <ValidationModal
         open={open}
         loading={false}
-        certificate={johndoe as ICertificate}
+        certificate={certificate}
+        onClose={handleModalClose}
       />
     </>
   );
