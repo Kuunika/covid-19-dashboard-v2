@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { LoadingModal } from "../components/certificate/certModals";
 import BasicButton from "../components/common/button";
+import { ErrorMessage } from "../components/common/";
 import { fetchCertificate } from "../services/api";
 
 export default function GenerateCertificate() {
@@ -64,9 +65,7 @@ export default function GenerateCertificate() {
       }}
     >
       {submissionError.error && (
-        <Typography variant="caption" align="center" color={"#D32F2F"}>
-          <strong>{submissionError.message}</strong>
-        </Typography>
+        <ErrorMessage message={submissionError.message} />
       )}
       <Box
         onSubmit={handleSubmit}

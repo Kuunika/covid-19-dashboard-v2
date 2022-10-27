@@ -1,9 +1,17 @@
-import { Box, Paper, TextField, useMediaQuery, useTheme } from "@mui/material";
+import {
+  Box,
+  Paper,
+  TextField,
+  useMediaQuery,
+  useTheme,
+  Alert,
+} from "@mui/material";
 import { useEffect, useState, useContext } from "react";
+
 import BasicButton from "../components/common/button";
 import { DashboardContext, DashboardContextType } from "../contexts/dashboards";
 import { login } from "../services/api";
-import Alert from "@mui/material/Alert";
+import { ErrorMessage } from "../components/common";
 
 export default function Login() {
   const theme = useTheme();
@@ -12,6 +20,10 @@ export default function Login() {
   const { saveDashboards, auth } = useContext(
     DashboardContext
   ) as DashboardContextType;
+  const [submissionError, setSubmissionError] = useState({
+    error: false,
+    message: "",
+  });
 
   const [formData, setFormData] = useState({
     username: { value: "", error: false, touched: false },
@@ -32,13 +44,24 @@ export default function Login() {
   const handleSubmit = async (e: any) => {
     setSubmitting(true);
     e.preventDefault();
-    const data = await login(formData.username.value, formData.password.value);
 
-    if (data) {
-      auth.storeToken(data.jwt);
-      saveDashboards(data.user.dashboards);
+    setSubmissionError({ error: false, message: "" });
+    const response = await login(
+      formData.username.value,
+      formData.password.value
+    );
+
+    console.log(response);
+
+    if (response.status === 200) {
+      auth.storeToken(response.data.jwt);
+      saveDashboards(response.data.user.dashboards);
       setSubmitting(false);
+      return;
     }
+
+    setSubmissionError({ error: true, message: response.data });
+    setSubmitting(false);
   };
 
   const handleChange = (e: any) => {
@@ -68,12 +91,20 @@ export default function Login() {
       onSubmit={handleSubmit}
       sx={{
         display: "flex",
+        flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
       }}
     >
-      <Paper sx={{ padding: "10px", width: `${matchedSM ? "30ch" : "40ch"}` }}>
+      <ErrorMessage message={submissionError.message} />
+      <Paper
+        sx={{
+          padding: "10px",
+          width: `${matchedSM ? "30ch" : "40ch"}`,
+          mt: 2,
+        }}
+      >
         <Box
           component="form"
           sx={{

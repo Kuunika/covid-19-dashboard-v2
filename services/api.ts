@@ -7,7 +7,7 @@ export const searchCertBySignature = async (signature: string) => {
     `v1/certificates/${encodeURIComponent(signature)}`
   );
 
-  if (response.ok) return response.data;
+  return formaResponse(response);
 };
 
 export const login = async (username: string, password: string) => {
@@ -16,7 +16,14 @@ export const login = async (username: string, password: string) => {
     password,
   });
 
-  if (response.ok) return response.data;
+  if (response.data.jwt) {
+    return formaResponse(response);
+  }
+
+  return {
+    status: response.data.statusCode,
+    data: response.data.message[0].messages[0].message,
+  };
 };
 
 export const fetchDashboards = async (token: string) => {
@@ -29,7 +36,7 @@ export const fetchDashboards = async (token: string) => {
       },
     }
   );
-  if (response.ok) return response.data;
+  return formaResponse(response);
 };
 
 export const fetchCertificate = async (epiNo: string) => {
