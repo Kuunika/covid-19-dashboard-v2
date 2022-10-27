@@ -33,14 +33,16 @@ export const fetchDashboards = async (token: string) => {
 };
 
 export const fetchCertificate = async (epiNo: string) => {
-  const response = await api.post("v1/certificates", {
-    epiNo,
-  });
-
-  if (response.ok) return response.data;
+  return formaResponse(
+    await api.post("v1/certificates", {
+      epiNo,
+    })
+  );
 };
 export const fetchCertificateWithSignature = async (signature: string) => {
-  const response = await api.get(`v1/certificates/${signature}`);
-
-  if (response.ok) return response.data;
+  return formaResponse(await api.get(`v1/certificates/${signature}`));
+};
+const formaResponse = (response: any) => {
+  if (response.ok) return { status: 200, data: response.data };
+  return { status: response.status, data: response.data.message };
 };

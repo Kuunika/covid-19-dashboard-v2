@@ -37,7 +37,9 @@ export const ValidationModal: FC<
   return (
     <BasicModal open={modelOpen}>
       {loading ? (
-        <LoadingImage message={message} />
+        <>
+          <LoadingImage message={message} />
+        </>
       ) : (
         <>
           <ViewValidationCert certificate={certificate} />

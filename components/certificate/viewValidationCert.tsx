@@ -1,4 +1,4 @@
-import { Box, Typography, Paper } from "@mui/material";
+import { Box, Typography, Paper, useMediaQuery, useTheme } from "@mui/material";
 import Image from "next/image";
 import { FC } from "react";
 import { humanReadableDate } from "../../helpers/dates";
@@ -10,6 +10,9 @@ type IProp = {
 };
 
 export function ViewValidationCert({ certificate }: IProp) {
+  const theme = useTheme();
+  const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
+
   const { dosages, boosterShots } = getDosages(certificate.dosageIndicators);
   return (
     <Box
@@ -18,24 +21,31 @@ export function ViewValidationCert({ certificate }: IProp) {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: "30ch",
+        maxHeight: matchesSM ? "100vh" : 600,
+        overflow: "auto",
       }}
     >
       <Image src={"/check.png"} height={80} width={80} />
-      <Typography variant="body1" sx={{ marginTop: "15px" }} color={"black"}>
+      <Typography variant={matchesSM ? "caption" : "body1"} color={"black"}>
         Name
       </Typography>
       <Typography
-        variant="h5"
+        variant={matchesSM ? "body1" : "h5"}
         color={"black"}
       >{`${certificate.firstname} ${certificate.lastname}`}</Typography>
-      <Typography variant="body1" color={"black"}>
+      <Typography variant={matchesSM ? "caption" : "body1"} color={"black"}>
         Birth date
       </Typography>
-      <Typography variant="h5" color={"black"}>
+      <Typography variant={matchesSM ? "body1" : "h5"} color={"black"}>
         {humanReadableDate(certificate.birthdate)}
       </Typography>
-      <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          flexDirection: `${matchesSM ? "column" : "row"}`,
+        }}
+      >
         {dosages.map((dosage: IDosageIndicator) => {
           return (
             <DosageIndicatorBox key={dosage.dosageNumber} dosage={dosage} />
@@ -45,47 +55,54 @@ export function ViewValidationCert({ certificate }: IProp) {
       {boosterShots.length ? (
         <>
           <Box>
-            {boosterShots.map((shot: IDosageIndicator) => (
-              <Box
-                key={shot.dosageNumber}
-                sx={{
-                  border: "2px solid #092008",
-                  borderRadius: "10px",
-                  mt: "10px",
-                }}
-              >
+            {boosterShots.map((shot: IDosageIndicator) => {
+              if (matchesSM) {
+                return (
+                  <DosageIndicatorBox key={shot.dosageNumber} dosage={shot} />
+                );
+              }
+
+              return (
                 <Box
+                  key={shot.dosageNumber}
                   sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    padding: "5px",
-                    // backgroundColor: "#DCE7DD",
+                    border: "2px solid #092008",
+                    borderRadius: "10px",
+                    mt: "10px",
                   }}
                 >
-                  <Typography variant="h5" color={"#092008"}>
-                    Booster Dose
-                  </Typography>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      padding: "5px",
+                    }}
+                  >
+                    <Typography variant="h5" color={"#092008"}>
+                      Booster Dose
+                    </Typography>
+                    <Box sx={{ display: "flex" }}>
+                      <BoxRow label="site" value={shot.vaccinationSite} />
+                      <BoxRow
+                        label="date"
+                        value={humanReadableDate(shot.vaccinationDate)}
+                      />
+                    </Box>
+                  </Box>
                   <Box sx={{ display: "flex" }}>
-                    <BoxRow label="site" value={shot.vaccinationSite} />
+                    <BoxRow label="name" value={shot.vaccineName} />
+                    <BoxRow label="type" value={shot.type} />
+                    <BoxRow label="batch number" value={shot.batchNumber} />
                     <BoxRow
-                      label="date"
-                      value={humanReadableDate(shot.vaccinationDate)}
+                      label="expiration"
+                      value={humanReadableDate(shot.expirationDate)}
                     />
                   </Box>
                 </Box>
-                <Box sx={{ display: "flex" }}>
-                  <BoxRow label="name" value={shot.vaccineName} />
-                  <BoxRow label="type" value={shot.type} />
-                  <BoxRow label="batch number" value={shot.batchNumber} />
-                  <BoxRow
-                    label="expiration"
-                    value={humanReadableDate(shot.expirationDate)}
-                  />
-                </Box>
-              </Box>
-            ))}
+              );
+            })}
           </Box>
         </>
       ) : null}
@@ -99,16 +116,24 @@ type IBoxRow = {
 };
 
 const BoxRow = ({ label, value }: IBoxRow) => {
+  const theme = useTheme();
+  const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
   return (
-    <Box sx={{ display: "flex", padding: "2px", margin: "2px" }}>
+    <Box
+      sx={{
+        display: "flex",
+        padding: matchesSM ? "0" : "2px",
+        margin: matchesSM ? "0" : "2px",
+      }}
+    >
       <Typography
         sx={{ mr: "4px", textTransform: "capitalize" }}
-        variant="body2"
+        variant={matchesSM ? "caption" : "body2"}
         color="black"
       >
         {label}:
       </Typography>
-      <Typography variant="body2" color="black">
+      <Typography variant={matchesSM ? "caption" : "body2"} color="black">
         {value}
       </Typography>
     </Box>
@@ -116,18 +141,22 @@ const BoxRow = ({ label, value }: IBoxRow) => {
 };
 
 const DosageIndicatorBox: FC<{ dosage: IDosageIndicator }> = ({ dosage }) => {
+  const theme = useTheme();
+  const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <Paper
       sx={{
         display: "flex",
         flexDirection: "column",
         padding: "4px",
-        margin: "1px",
+        margin: "4px",
       }}
     >
       <Box sx={{ padding: "4px" }}>
         <>
-          <Typography variant="h5">Dose {dosage.dosageNumber}</Typography>
+          <Typography variant={matchesSM ? "body1" : "h6"}>
+            Dose {dosage.dosageNumber}
+          </Typography>
           <Typography variant="caption">
             Vaccination Date: {humanReadableDate(dosage.vaccinationDate)}
           </Typography>

@@ -21,14 +21,31 @@ export default function GenerateCertificate() {
   const [touched, setTouched] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
+  const [submissionError, setSubmissionError] = useState({
+    error: false,
+    message: "",
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!epiNumber) {
+      setError(true);
+      return;
+    }
+    setSubmissionError({ error: false, message: "" });
     setSubmitting(true);
 
     const response = await fetchCertificate(epiNumber);
 
-    router.push(`/view-certificate?signature=${response.signature}`);
+    if (response.status == 200) {
+      return router.push(
+        `/view-certificate?signature=${response.data.signature}`
+      );
+    }
+
+    setSubmissionError({ error: true, message: response.data });
+    setSubmitting(false);
   };
 
   useEffect(() => {
@@ -41,10 +58,16 @@ export default function GenerateCertificate() {
       sx={{
         display: "flex",
         justifyContent: "center",
+        flexDirection: "column",
         alignItems: "center",
         height: "100vh",
       }}
     >
+      {submissionError.error && (
+        <Typography variant="caption" align="center" color={"#D32F2F"}>
+          <strong>{submissionError.message}</strong>
+        </Typography>
+      )}
       <Box
         onSubmit={handleSubmit}
         component="form"

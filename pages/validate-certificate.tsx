@@ -8,11 +8,12 @@ import { searchCertBySignature } from "../services/api";
 
 export default function () {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [certificate, setCertificate] = useState({} as ICertificate);
 
   const handleModalClose = () => {
     setOpen(false);
-    setCertificate({});
+    setCertificate({} as ICertificate);
   };
   const handleScan = async (result, error) => {
     if (!result) return;
@@ -22,9 +23,11 @@ export default function () {
     if (!!result) {
       try {
         const signature = result.text.split("?sg=")[1];
-        response = await searchCertBySignature(signature);
-        setCertificate(response as ICertificate);
+        setLoading(true);
         setOpen(true);
+        response = await searchCertBySignature(signature);
+        setLoading(false);
+        setCertificate(response as ICertificate);
       } catch (error) {}
       return;
     }
@@ -39,7 +42,7 @@ export default function () {
       <QrReader onResult={handleScan} />
       <ValidationModal
         open={open}
-        loading={false}
+        loading={loading}
         certificate={certificate}
         onClose={handleModalClose}
       />
