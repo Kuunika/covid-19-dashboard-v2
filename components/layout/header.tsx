@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useEffect, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -16,12 +16,24 @@ import {
   DashboardContext,
   DashboardContextType,
 } from "../../contexts/dashboards";
+import { fetchDashboards } from "../../services/api";
 
 export default function Header() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("lg"));
   const router = useRouter();
-  const { auth } = React.useContext(DashboardContext) as DashboardContextType;
+  const { auth, saveDashboards, dashboards } = useContext(
+    DashboardContext
+  ) as DashboardContextType;
+
+  useEffect(() => {
+    if (dashboards.length === 0 && Boolean(auth.getToken())) {
+      (async () => {
+        const dash = await fetchDashboards(auth.getToken());
+        saveDashboards(dash.data);
+      })();
+    }
+  }, []);
 
   const navigate = (endpoint: string) => router.push(endpoint);
 

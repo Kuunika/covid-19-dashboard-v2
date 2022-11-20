@@ -26,7 +26,7 @@ export default function CertificateMenu() {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        Generate certificate
+        Vaccine certificate
       </Button>
 
       <Menu

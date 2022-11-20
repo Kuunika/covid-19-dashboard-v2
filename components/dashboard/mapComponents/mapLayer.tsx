@@ -52,6 +52,10 @@ export default function MapLayer({ district, lngLtd }: IProps) {
         district.properties.districtName.toLowerCase().replace(" ", "")
     );
 
+    if (aggregate?.districtName == "mzimba south") {
+      console.log("mzimba");
+    }
+
     if (aggregate) setDistrictAggregate(aggregate);
   }, []);
 

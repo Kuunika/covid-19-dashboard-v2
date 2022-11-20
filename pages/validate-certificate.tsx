@@ -27,7 +27,7 @@ export default function () {
         setOpen(true);
         response = await searchCertBySignature(signature);
         setLoading(false);
-        setCertificate(response as ICertificate);
+        setCertificate(response.data as ICertificate);
       } catch (error) {}
       return;
     }

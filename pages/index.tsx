@@ -22,19 +22,6 @@ const Home: NextPage<IProps> = ({ districts }) => {
     DistrictAggregateContext
   ) as DistrictAggregateContextType;
 
-  const { dashboards, auth, saveDashboards } = useContext(
-    DashboardContext
-  ) as DashboardContextType;
-
-  useEffect(() => {
-    if (dashboards.length === 0 && Boolean(auth.getToken())) {
-      (async () => {
-        const dash = await fetchDashboards(auth.getToken());
-        saveDashboards(dash);
-      })();
-    }
-  }, []);
-
   saveAggregate(districts);
   return <DashboardLayout />;
 };
@@ -47,6 +34,8 @@ export async function getStaticProps() {
   );
   let districts: DistrictAggregate[] | undefined = [];
   if (response.ok) districts = response.data?.districts;
+
+  console.log(districts);
 
   return {
     props: { districts },

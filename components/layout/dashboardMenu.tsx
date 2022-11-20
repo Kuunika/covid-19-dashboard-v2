@@ -48,7 +48,7 @@ export default function DashboardMenu() {
         }}
       >
         <Link href="/generate-certificate" sx={{ textDecoration: "none" }}>
-          <MenuItem onClick={handleClose}>Generate Certificate</MenuItem>
+          <MenuItem onClick={handleClose}>Vaccine Certificate</MenuItem>
         </Link>
         <Link href="/validate-certificate" sx={{ textDecoration: "none" }}>
           <MenuItem onClick={handleClose}>Validate Certificate</MenuItem>
